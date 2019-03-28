@@ -1,102 +1,94 @@
 {
-	"Blank Function": {
-		"prefix": "noop",
-		"body": [
-			"() => {}"
-		],
-		"description": "Create blank function (for defaultProps)"
-	},
-	"Arrow Function": {
-		"prefix": "arf",
-		"body": [
-			"const $0 = ($1) => {",
-			"\t const result = {};",
-			"\t return result;",
-			"}"
-		],
-		"description": "Create arrow function"
-	},
-	"Mapper Function": {
-		"prefix": "mapper",
-		"body": [
-			"(${0:value}, index) => ({",
-			"\t ${1:id}: $0.id",
-			"})"
-		],
-		"description": "Create arrow function"
-	},
-	"Default Props": {
-		"prefix": "dfp",
-		"body": [
-			"$TM_FILENAME_BASE.defaultProps = {",
-			"\t$0",
-			"}"
-		],
-		"description": "Create defaultProps"
-	},
-	"Static Props and Default": {
-		"prefix": "staticp",
-		"body": [
-			"static propTypes = {",
-			"\t$0",
-			"}",
-			"static defaultProps = {",
-			"\t$0",
-			"}"
-		],
-		"description": "Create class propTypes and defaultProps"
-	},
-	"this.props": {
-		"prefix": "tp",
-		"body": [
-			"this.props.$0",
-		],
-		"description": "Create defaultProps"
-	},
-	"Destrucing Props": {
-		"prefix": "constp",
-		"body": [
-			"const { $0, ...restProps } = this.props;",
-		],
-		"description": "Destructing Props"
-	},
-	"Destrucing State": {
-		"prefix": "consts",
-		"body": [
-			"const { $0 } = this.state;",
-		],
-		"description": "Destructing State"
-	},
-	"React Class Construtor": {
-		"prefix": "constr",
-		"body": [
-			"constructor(props) {",
-			"\tsuper(props);",
-			"\tthis.state = {",
-			"\t$0",
-			"\t}",
-			"\t$1",
-			"}"
-		],
-		"description": "React Class Construtor"
-	},
-	"storybook": {
-		"prefix": "story",
-		"body": [
-			"import React from 'react';",
-			"import { storiesOf } from '@storybook/react';",
-			"",
-			"// import the component.",
-			"import $1 from './index';",
-			"",
-			"",
-			"storiesOf('$1', module)",
-			"  .add('default', () => {",
-			"    return (",
-			"      <$1 />",
-			"    );",
-			"  });"
-		],
-		"description": "storybook shortcode"
-	}
+  "Blank Function": {
+    "prefix": "noop",
+    "body": ["() => {},"],
+    "description": "Create blank function (for defaultProps)"
+  },
+  "Have value": {
+    "prefix": "nau",
+    "body": ["(${0:value} !== null && ${0:value} !== undefined)"],
+    "description": "Have value condition"
+  },
+  "Not Have value": {
+    "prefix": "nou",
+    "body": ["(${0:value} === null || ${0:value} === undefined)"],
+    "description": "Not have value condition"
+  },
+  "Arrow Function": {
+    "prefix": "arf",
+    "body": ["const $0 = ($1) => {", "\t const result = {};", "\t return result;", "}"],
+    "description": "Create arrow function"
+  },
+  "Mapper Function": {
+    "prefix": "mapper",
+    "body": ["(${0:value}, index) => ({", "\t ${1:id}: $0.id", "})"],
+    "description": "Create arrow function"
+  },
+  "Default Props": {
+    "prefix": "dfp",
+    "body": ["$TM_FILENAME_BASE.defaultProps = {", "\t$0", "}"],
+    "description": "Create defaultProps"
+  },
+  "Static Props and Default": {
+    "prefix": "staticp",
+    "body": ["static propTypes = {", "\t$0", "}", "static defaultProps = {", "\t$0", "}"],
+    "description": "Create class propTypes and defaultProps"
+  },
+  "this.props": {
+    "prefix": "tp",
+    "body": ["this.props.$0"],
+    "description": "Create defaultProps"
+  },
+  "Destrucing Props": {
+    "prefix": "constp",
+    "body": ["const { $0, ...restProps } = this.props;"],
+    "description": "Destructing Props"
+  },
+  "Destrucing State": {
+    "prefix": "consts",
+    "body": ["const { $0 } = this.state;"],
+    "description": "Destructing State"
+  },
+  "React Class Construtor": {
+    "prefix": "constr",
+    "body": [
+      "constructor(props) {",
+      "\tsuper(props);",
+      "\tthis.state = {",
+      "\t$0",
+      "\t}",
+      "\t$1",
+      "}"
+    ],
+    "description": "React Class Construtor"
+  },
+  "storybook": {
+    "prefix": "story",
+    "body": [
+      "import React from 'react';",
+      "import { storiesOf } from '@storybook/react';",
+      "import { withKnobs, boolean, number, text } from '@storybook/addon-knobs/react';",
+      "",
+      "// import the component.",
+      "import ${TM_DIRECTORY/^.+\\/(.*)$/$1/} from './index';",
+      "",
+      "",
+      "storiesOf('${TM_DIRECTORY/(.*src.)(.*).*$/$2/}', module)",
+      "  .addDecorator(withKnobs)",
+      "  .add('default', () => {",
+      "    return (",
+      "      <${TM_DIRECTORY/^.+\\/(.*)$/$1/} />",
+      "    );",
+      "  });"
+    ],
+    "description": "storybook shortcode"
+  },
+  "export {default} from <Directory>": {
+    "prefix": "expd",
+    "body": ["export { default } from './${TM_DIRECTORY/^.+\\/(.*)$/$1/}';"]
+  },
+  "export default <Filename>": {
+    "prefix": "expf",
+    "body": ["export default ${TM_FILENAME/(.*)\\..+$/$1/};"]
+  }
 }
